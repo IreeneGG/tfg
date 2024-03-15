@@ -1,0 +1,37 @@
+version: "3.3"
+services:
+  aemet:
+    build:
+      context: ./aemet
+      dockerfile: Dockerfile-aemet
+    ports:
+      - "5000:5000"
+    networks:
+      - campo-net
+
+  saihebro:
+    build:
+      context: ./saihebro
+      dockerfile: Dockerfile-saihebro 
+    ports:
+      - "8000:8000"
+    networks:
+      - campo-net
+
+  influxdb:
+      image: influxdb:latest
+      container_name: influxdb-container
+      ports:
+        - "6000:6000"
+      networks:
+        - campo-net
+      volumes:
+        - influxdb-volume:/var/lib/influxdb
+
+networks:
+  campo-net:
+
+volumes:
+  influxdb-volume:
+
+

@@ -1,0 +1,15 @@
+FROM python:latest
+
+WORKDIR /app
+
+COPY src/API_xml.py .
+COPY src/requirements.txt .
+
+# Add missing package installation command
+RUN apt-get update; apt-get install -y python3-lxml
+RUN pip install --no-cache-dir -r requirements.txt
+
+EXPOSE 5000
+
+# Update CMD instruction to run the Python script
+CMD ["python3", "API_xml"]
